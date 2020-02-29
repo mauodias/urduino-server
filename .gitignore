@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/python,flask
-# Edit at https://www.gitignore.io/?templates=python,flask
+# Created by https://www.gitignore.io/api/python,flask,virtualenv
+# Edit at https://www.gitignore.io/?templates=python,flask,virtualenv
 
 ### Flask ###
 instance/*
@@ -159,4 +159,20 @@ dmypy.json
 
 # Pyre type checker
 
-# End of https://www.gitignore.io/api/python,flask
+### VirtualEnv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+pyvenv.cfg
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-selfcheck.json
+
+### direnv ###
+.envrc
+
+# End of https://www.gitignore.io/api/python,flask,virtualenv
