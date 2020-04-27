@@ -1,28 +1,27 @@
+from loguru import logger
 import random
+import uuid
+
+from board import Board
 
 class Game:
     
     def __init__(self):
-        X='x'
-        self._board = [[0,0,0],
-                       [0,0,0],
-                       [X,0,X],
-                       [X,0,X],
-                       [0,0,0],
-                       [0,0,0],
-                       [0,0,0],
-                       [0,0,0]]
+        self._id = uuid.uuid4()
+        self._board = Board()
+        #self._player_top = Player()
+        #self._player_bottom = Player()
 
     @property
-    def board(self):
-        b = ''
-        for row in self._board:
-            for cell in row:
-                b = b + str(cell)
-        return b
+    def player_top(self):
+        return self._player_top.id
 
-def draw():
-    dice = []
-    for i in range(4):
-        dice.append(random.randint(0,1))
-    return str(sum(dice))
+    @property
+    def player_bottom(self):
+        return self._player_bottom.id
+
+    def throw_dice(self):
+        dice = []
+        for i in range(4):
+            dice.append(random.randint(0,1))
+        return str(sum(dice))
