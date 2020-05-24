@@ -1,12 +1,10 @@
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
+from basemodel import BaseModel
+from peewee import ForeignKeyField, IntegerField, TextField
+from player import Player
 
-db = SQLAlchemy()
-
-class Game(db.Model):
-    id = db.Column(db.Integer, primaryKey=True)
-    creation_Date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f'<Game id: {self.id}>'
-
+class Game(BaseModel):
+    player1 = ForeignKeyField(Player, backref='games')
+    player2 = ForeignKeyField(Player, backref='games', null=True)
+    dice = IntegerField(default=-1)
+    next_player = ForeignKeyField(Player, backref='games', null=True)
+    board = TextField(default='')

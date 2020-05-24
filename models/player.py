@@ -1,12 +1,12 @@
-from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
+from basemodel import BaseModel
+from peewee import TextField, IntegerField
 
-db = SQLAlchemy()
+class Player(BaseModel):
+    player_uuid = TextField()
+    rocks_left = IntegerField(default=7)
 
-class Player(db.Model):
-    id = db.Column(db.Integer, primaryKey=True)
-    creation_Date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f'<Player id: {self.id}>'
-
+    @classmethod
+    def less_rocks(cls, player_uuid):
+        player = cls.select().where(cls.player_uuid == player_uuid).get()
+        player.rocks_left -= 1
+        player.save()
