@@ -177,3 +177,6 @@ pip-selfcheck.json
 .direnv/
 
 # End of https://www.gitignore.io/api/python,flask,virtualenv
+
+# Databases
+*.db
