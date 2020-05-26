@@ -1,4 +1,4 @@
-from connect import db
+from models.connect import db
 from peewee import Model
 
 class BaseModel(Model):
