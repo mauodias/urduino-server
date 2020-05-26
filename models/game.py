@@ -55,8 +55,18 @@ class Game(BaseModel):
         return game
 
     @classmethod
-    def update_game(cls, data):
-        pass
+    def update_board(cls, board):
+        game = cls.get(player_uuid)
+        if game:
+            logger.info(f'Found game {game.id}')
+            logger.info(f'Current board {game.board}')
+            game.board = board
+            game.save()
+            logger.info(f'New board {game.board}')
+            return True
+        else:
+            logger.info(f'No game found for player with UUID {player_uuid}')
+            return False
 
     @classmethod
     def throw_dice(cls, player_uuid):
