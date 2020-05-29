@@ -27,6 +27,30 @@ def dice(uuid):
 def game(uuid=None):
     logger.info(f'Received game request with{"out id" if uuid is None else f" id {uuid}"}')
     if uuid:
-        pass
+        data = {
+                'id': f'{uuid}',
+                'board': 'dummyboard',
+                'player1': 'batato',
+                'player2': 'tomato'
+                }
+        response = Payload(success=True, message=f'Retrieved game for player ID {uuid}', data=data)
     else:
-        pass
+        data = {
+                'id': 'Obina_melhor_que_etoo',
+                'board': 'dummyboard',
+                'player1': 'batato',
+                'player2': 'tomato'
+                }
+        response = Payload(success=True, message='New game created', data=data)
+    return response
+
+def play(uuid, position):
+    logger.info(f'Received request from player {uuid} to play on position {position}')
+    data = {
+            'id': f'{uuid}',
+            'board': 'PLEIED',
+            'player1': 'batato',
+            'player2': 'tomato'
+            }
+    response = Payload(success=True, data=data)
+    return response

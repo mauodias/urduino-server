@@ -11,10 +11,16 @@ def game():
     logger.info('Received GET request on /game')
     if (uuid := request.args.get('id')):
         logger.info(f'Received ID {uuid}')
-        return uuid
     else:
-        logger.info('No ID provided, creating new game')
-        return '01234567-89ab-cdef-0123-456789abcdef'
+        logger.info('No ID provided')
+    result = controller.game(uuid)
+    if result.success:
+        logger.info('Received successful response')
+        return jsonify({
+                'success': result.success,
+                'message': result.message,
+                'data': result.data
+            })
 
 @app.route('/dice', methods=['GET'])
 def dice():
@@ -36,6 +42,13 @@ def dice():
 
 @app.route('/play', methods=['POST'])
 def play():
-    logger.info(f'Received POST request on /play')
-    return 'Ok'
-
+    logger.info(f'Received request to play')
+    if not request.json or not request.json.get('uuid') or not request.json.get('position'):
+        logger.warning(f'Received malformed request: {request.data}')
+        return 'Request malformed', 400
+    position = request.json.get('position')
+    uuid = request.json.get('uuid')
+    result = controller.play(uuid, position)
+    return jsonify({'success': result.success,
+        'message': result.message,
+        'data': result.data})
